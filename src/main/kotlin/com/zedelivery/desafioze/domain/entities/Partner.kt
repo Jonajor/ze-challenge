@@ -11,7 +11,7 @@ import java.security.SecureRandom
 @Document(collection = "partners")
 data class Partner(
     @Id
-    val id: String = SecureRandom().nextInt(16777216).toString(),
+    val id: String,
     @GeoSpatialIndexed(name = "address", type = GeoSpatialIndexType.GEO_2DSPHERE)
     var address: GeoJsonPoint,
     var coverageArea: GeoJsonMultiPolygon,

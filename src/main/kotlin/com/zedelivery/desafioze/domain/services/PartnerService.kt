@@ -1,7 +1,9 @@
 package com.zedelivery.desafioze.domain.services
 
+import com.google.gson.Gson
 import com.zedelivery.desafioze.domain.dtos.DataContract
 import com.zedelivery.desafioze.domain.dtos.PartnerDto
+import com.zedelivery.desafioze.domain.dtos.Pdv
 import com.zedelivery.desafioze.domain.entities.Partner
 import com.zedelivery.desafioze.domain.factories.PartnerFactory
 import com.zedelivery.desafioze.domain.repositories.PartnerRepository
@@ -11,13 +13,15 @@ import org.springframework.data.geo.Point
 import org.springframework.stereotype.Service
 import reactor.core.publisher.Flux
 import reactor.core.publisher.Mono
+import reactor.kotlin.core.publisher.toMono
+import java.io.BufferedReader
+import java.io.File
 import java.util.*
 
 
 @Service
 class PartnerService(private val partnerRepository: PartnerRepository,
                      private val partnerFactory: PartnerFactory) {
-    fun getAll(): Flux<Partner> = partnerRepository.findAll()
 
     fun findById(id: String): Mono<Partner> {
         return partnerRepository.findById(id)
@@ -25,6 +29,14 @@ class PartnerService(private val partnerRepository: PartnerRepository,
 
     fun createPartner(partnerDto: PartnerDto): Mono<Partner> {
         return partnerRepository.save(partnerFactory.convertDtoToEntity(partnerDto))
+    }
+
+    fun createFromFile(): Flux<Partner>{
+        var gson = Gson()
+        val bufferedReader: BufferedReader = File ("src/main/resources/pdvs.json").bufferedReader()
+        val inputString = bufferedReader.use { it.readText() }
+        var dataContract = gson.fromJson(inputString, DataContract::class.java)
+        return createAll(dataContract)
     }
 
     fun createAll(dataContract: DataContract): Flux<Partner> {

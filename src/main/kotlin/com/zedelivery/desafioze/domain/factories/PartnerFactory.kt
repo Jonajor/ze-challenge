@@ -21,6 +21,7 @@ class PartnerFactory {
         val area = GeoJsonMultiPolygon(partnerDto.coverageArea.coordinates as MutableList<GeoJsonPolygon>)
 
         return Partner(
+            id = partnerDto.id,
             address = address,
             coverageArea = area,
             document = partnerDto.document,
@@ -40,6 +41,7 @@ class PartnerFactory {
         val area = GeoJsonMultiPolygon(pdv.coverageArea.coordinates as MutableList<GeoJsonPolygon>)
 
         return Partner(
+            id = pdv.id,
             address = address,
             coverageArea = area,
             document = pdv.document,
