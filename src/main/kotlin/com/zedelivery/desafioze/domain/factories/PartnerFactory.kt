@@ -1,7 +1,9 @@
 package com.zedelivery.desafioze.domain.factories
 
-import com.zedelivery.desafioze.domain.dtos.PartnerDto
+import com.zedelivery.desafioze.domain.dtos.AddressDto
 import com.zedelivery.desafioze.domain.dtos.Pdv
+import com.zedelivery.desafioze.domain.dtos.response.CoverageArea
+import com.zedelivery.desafioze.domain.dtos.response.PartnerDto
 import com.zedelivery.desafioze.domain.entities.Partner
 import org.springframework.data.mongodb.core.geo.GeoJsonMultiPolygon
 import org.springframework.data.mongodb.core.geo.GeoJsonPoint
@@ -12,25 +14,28 @@ import org.springframework.stereotype.Service
 @Service
 class PartnerFactory {
 
-    fun convertDtoToEntity(partnerDto: PartnerDto): Partner {
-        val address = GeoJsonPoint(
-            partnerDto.address.coordinates[0],
-            partnerDto.address.coordinates[1]
+    fun convertEntityToDto(partner: Partner): PartnerDto {
+
+        val address = AddressDto(
+            type = partner.address.type,
+            coordinates = partner.address.coordinates
         )
 
-        val area = GeoJsonMultiPolygon(partnerDto.coverageArea.coordinates as MutableList<GeoJsonPolygon>)
+        val area = CoverageArea(
+            type = partner.coverageArea.type,
+            coordinates = partner.coverageArea.coordinates[0].coordinates[0].coordinates
+        )
 
-        return Partner(
-            id = partnerDto.id,
+        return PartnerDto(
+            id = partner.id,
             address = address,
             coverageArea = area,
-            document = partnerDto.document,
-            ownerName = partnerDto.ownerName,
-            tradingName = partnerDto.tradingName
+            document = partner.document,
+            ownerName = partner.ownerName,
+            tradingName = partner.tradingName
         )
-
     }
-
+    
     fun convertPdvToEntity(pdv: Pdv): Partner {
 
         val address = GeoJsonPoint(
@@ -50,4 +55,5 @@ class PartnerFactory {
         )
 
     }
+    
 }
