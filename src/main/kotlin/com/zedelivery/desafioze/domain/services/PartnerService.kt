@@ -47,17 +47,12 @@ class PartnerService(private val partnerRepository: PartnerRepository,
         return partnerList
     }
 
-    @EventListener(ContextRefreshedEvent::class)
-    private fun createFromFile() {
-        val gson = Gson()
-        val bufferedReader: BufferedReader = File ("src/main/resources/pdvs.json").bufferedReader()
-        val inputString = bufferedReader.use { it.readText() }
-        val dataContract = gson.fromJson(inputString, DataContract::class.java)
+    fun createAll(dataContract: DataContract): MutableIterable<Partner> {
         val partnerList = ArrayList<Partner>()
         dataContract.pdvs.forEach {
             partnerList.add(partnerFactory.convertPdvToEntity(it))
         }
-        partnerRepository.saveAll(partnerList)
+        return partnerRepository.saveAll(partnerList)
     }
 
 }

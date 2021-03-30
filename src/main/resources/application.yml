@@ -1,5 +1,5 @@
 spring:
   data:
     mongodb:
-      uri: mongodb://localhost:27017/zedelivery
+      uri: mongodb://mongodb:27017/zedelivery
       auto-index-creation: true

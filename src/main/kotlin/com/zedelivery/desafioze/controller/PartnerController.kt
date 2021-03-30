@@ -1,6 +1,8 @@
 package com.zedelivery.desafioze.controller
 
+import com.zedelivery.desafioze.domain.dtos.DataContract
 import com.zedelivery.desafioze.domain.dtos.response.PartnerDto
+import com.zedelivery.desafioze.domain.entities.Partner
 import com.zedelivery.desafioze.domain.services.PartnerService
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
@@ -21,8 +23,12 @@ class PartnerController(private val partnerService: PartnerService){
     @GetMapping("/location")
     fun getLocations(
         @RequestParam latitude: Double, @RequestParam longitude: Double,
-        @RequestParam distance: Double): List<PartnerDto> {
-        return partnerService.getLocationNear(latitude, longitude, distance)
+        @RequestParam distance: Double): ResponseEntity<List<PartnerDto>> {
+        return ResponseEntity.status(HttpStatus.OK).body(partnerService.getLocationNear(latitude, longitude, distance))
     }
 
+    @PostMapping("/batch")
+    fun saveAll(@RequestBody dataContract: DataContract): ResponseEntity<MutableIterable<Partner>> {
+        return ResponseEntity.status(HttpStatus.CREATED).body(partnerService.createAll(dataContract))
+    }
 }
