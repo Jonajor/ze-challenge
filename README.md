@@ -40,16 +40,6 @@ cd desafioze
 docker-compose up
 ```
 
-**1. Database
-In this project I used mongodb on Ubuntu, to install just follow the commands below.
-Or we can use the docker-compose file just run and the application will run on port 8080.**
-```bash - Ubunto
-sudo apt update
-sudo apt install -y mongodb
-sudo systemctl status mongodb
-mongo --eval 'db.runCommand({ connectionStatus: 1 })'
-```
-
 For other operating systems access [this link](https://treehouse.github.io/installation-guides/).
 
 **4. You can also build and run the application using maven, but you need to install mongodb and change the application's properties to point to the database uri correctly.**
