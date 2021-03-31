@@ -42,9 +42,9 @@ docker-compose up
 
 For other operating systems access [this link](https://treehouse.github.io/installation-guides/).
 
-**4. You can also build and run the application using maven, but you need to install mongodb and change the application's properties to point to the database uri correctly.**
+**3. You can also build and run the application using maven, but you need to install mongodb and change the application's properties to point to the database uri correctly.**
 
-***4.1. Database
+***3.1. Database
 In this project I used mongodb on Ubuntu, to install just follow the commands below.***
 ```bash - Ubunto
 sudo apt update
@@ -55,7 +55,7 @@ mongo --eval 'db.runCommand({ connectionStatus: 1 })'
 
 **Change application properties**
 
-***4.2. Open the application in an IDE and open the application.yml file in src/main/resources***
+***3.2. Open the application in an IDE and open the application.yml file in src/main/resources***
 ```bash
 spring:
   data:
@@ -64,19 +64,19 @@ spring:
       auto-index-creation: true
 ```
 
-***4.3. Run the application using maven***
+***3.3. Run the application using maven***
 ```bash
 mvn spring-boot:run
 ```
 
-***4.4. Or generate a new .jar file and run with java***
+***3.4. Or generate a new .jar file and run with java***
 ```bash
 java -jar target/desafioze-0.0.1-SNAPSHOT.jar
 ```
 
 The server will start at <http://localhost:8080>.
 
-**5. Commands to access the mongoDB base**
+**4. Commands to access the mongoDB base**
 
 ```bash
 docker exec -it mongodb mongo
