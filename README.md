@@ -53,8 +53,8 @@ sudo systemctl status mongodb
 mongo --eval 'db.runCommand({ connectionStatus: 1 })'
 ```
 
-***Change application properties
-4.2. Open the application in an IDE and open the application.yml file in src/main/resources***
+**Change application properties**
+***4.2. Open the application in an IDE and open the application.yml file in src/main/resources***
 ```bash
 spring:
   data:
